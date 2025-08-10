@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button.jsx';
 import Footer from './components/Footer.jsx';
+import BuildVersion from './components/BuildVersion.jsx';
 import './App.css';
 
 function App() {
@@ -87,6 +88,9 @@ function App() {
 
       {/* Footer with Legal Links */}
       <Footer />
+      
+      {/* Build Version Display */}
+      <BuildVersion />
     </div>
   );
 }
