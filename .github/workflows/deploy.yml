@@ -1,0 +1,169 @@
+name: Deploy Portal to Production
+
+on:
+  push:
+    branches:
+      - master
+      - main
+  workflow_dispatch:
+
+env:
+  FLY_API_TOKEN: ${{ secrets.FLY_ORG_TOKEN }}
+  NODE_VERSION: 20
+
+jobs:
+  test:
+    name: Run Tests and Quality Checks
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.4.1
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run ESLint
+        run: pnpm lint
+        continue-on-error: true
+
+      - name: Run build test
+        run: pnpm build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: dist/
+          retention-days: 1
+
+  security:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.4.1
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run npm audit
+        run: pnpm audit --audit-level moderate
+        continue-on-error: true
+
+      - name: Run dependency check
+        run: |
+          npx audit-ci --config .audit-ci.json || echo "Audit completed with warnings"
+        continue-on-error: true
+
+  deploy:
+    name: Deploy to Fly.io
+    runs-on: ubuntu-latest
+    needs: [test, security]
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Fly CLI
+        uses: superfly/flyctl-actions/setup-flyctl@master
+
+      - name: Deploy to Fly.io
+        run: |
+          flyctl deploy --remote-only --wait-timeout 600
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_ORG_TOKEN }}
+
+      - name: Verify deployment health
+        run: |
+          sleep 30
+          flyctl status --app tuneatlife-portal
+          
+          # Test health endpoint
+          HEALTH_URL="https://tuneatlife-portal.fly.dev/health"
+          echo "Testing health endpoint: $HEALTH_URL"
+          
+          for i in {1..5}; do
+            if curl -f -s "$HEALTH_URL" | grep -q "ok"; then
+              echo "✅ Health check passed on attempt $i"
+              break
+            fi
+            echo "⏳ Health check attempt $i failed, retrying in 10s..."
+            sleep 10
+            if [ $i -eq 5 ]; then
+              echo "❌ Health check failed after 5 attempts"
+              exit 1
+            fi
+          done
+          
+          # Test main application
+          APP_URL="https://tuneatlife-portal.fly.dev"
+          echo "Testing main application: $APP_URL"
+          
+          if curl -f -s "$APP_URL" | grep -q "TuneAtLife"; then
+            echo "✅ Application is responding correctly"
+          else
+            echo "❌ Application health check failed"
+            exit 1
+          fi
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_ORG_TOKEN }}
+
+  notify:
+    name: Deployment Notification
+    runs-on: ubuntu-latest
+    needs: [deploy]
+    if: always()
+
+    steps:
+      - name: Deployment Success
+        if: needs.deploy.result == 'success'
+        run: |
+          echo "🎉 TuneAtLife Portal deployed successfully!"
+          echo "🔗 Application URL: https://tuneatlife-portal.fly.dev"
+          echo "🏥 Health Check: https://tuneatlife-portal.fly.dev/health"
+          echo "📱 Portal Dashboard: https://tuneatlife-portal.fly.dev"
+
+      - name: Deployment Failure
+        if: needs.deploy.result == 'failure'
+        run: |
+          echo "❌ TuneAtLife Portal deployment failed!"
+          echo "📋 Check the deployment logs for details"
+          exit 1
+

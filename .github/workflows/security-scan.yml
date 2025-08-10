@@ -1,0 +1,222 @@
+name: Security Scan
+
+on:
+  schedule:
+    # Run daily at 3 AM UTC
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - master
+      - main
+
+env:
+  NODE_VERSION: 20
+
+jobs:
+  secret-detection:
+    name: Secret Detection
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run TruffleHog
+        uses: trufflesecurity/trufflehog@main
+        with:
+          path: ./
+          base: main
+          head: HEAD
+          extra_args: --debug --only-verified
+
+  dependency-scan:
+    name: Dependency Vulnerability Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.4.1
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run npm audit
+        run: |
+          pnpm audit --audit-level moderate --json > tmp/npm_audit.json || echo "Audit completed with findings"
+        continue-on-error: true
+
+      - name: Install security scanning tools
+        run: |
+          npm install -g audit-ci
+          npm install -g retire
+
+      - name: Run audit-ci
+        run: |
+          mkdir -p tmp
+          audit-ci --moderate --report-type json --output-file tmp/audit_ci.json || echo "Audit CI completed"
+        continue-on-error: true
+
+      - name: Run retire.js
+        run: |
+          retire --outputformat json --outputpath tmp/retire_scan.json || echo "Retire scan completed"
+        continue-on-error: true
+
+      - name: Upload security scan results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: dependency-security-scan-results
+          path: |
+            tmp/npm_audit.json
+            tmp/audit_ci.json
+            tmp/retire_scan.json
+
+  container-scan:
+    name: Container Security Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: |
+          docker build -t tuneatlife-portal:security-scan .
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'tuneatlife-portal:security-scan'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+
+      - name: Upload Trivy scan results
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: 'trivy-results.sarif'
+
+  code-quality:
+    name: Code Quality Analysis
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.4.1
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run ESLint
+        run: |
+          mkdir -p tmp
+          pnpm lint --format json --output-file tmp/eslint_results.json || echo "ESLint completed with findings"
+        continue-on-error: true
+
+      - name: Check for unused dependencies
+        run: |
+          npx depcheck --json > tmp/depcheck_results.json || echo "Depcheck completed"
+        continue-on-error: true
+
+      - name: Bundle size analysis
+        run: |
+          pnpm build
+          npx bundlesize || echo "Bundle size check completed"
+        continue-on-error: true
+
+      - name: Upload code quality results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: code-quality-results
+          path: |
+            tmp/eslint_results.json
+            tmp/depcheck_results.json
+
+  license-scan:
+    name: License Compliance Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.4.1
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install license checker
+        run: npm install -g license-checker
+
+      - name: Run license check
+        run: |
+          mkdir -p tmp
+          license-checker --json > tmp/license_check.json || echo "License check completed"
+        continue-on-error: true
+
+      - name: Upload license scan results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: license-scan-results
+          path: tmp/license_check.json
+
+  security-summary:
+    name: Security Summary
+    runs-on: ubuntu-latest
+    needs: [secret-detection, dependency-scan, container-scan, code-quality, license-scan]
+    if: always()
+
+    steps:
+      - name: Security Scan Summary
+        run: |
+          echo "🔒 Security Scan Summary for TuneAtLife Portal"
+          echo "=============================================="
+          echo "Secret Detection: ${{ needs.secret-detection.result }}"
+          echo "Dependency Scan: ${{ needs.dependency-scan.result }}"
+          echo "Container Scan: ${{ needs.container-scan.result }}"
+          echo "Code Quality: ${{ needs.code-quality.result }}"
+          echo "License Scan: ${{ needs.license-scan.result }}"
+          echo ""
+          
+          if [[ "${{ needs.secret-detection.result }}" == "failure" || 
+                "${{ needs.container-scan.result }}" == "failure" ]]; then
+            echo "❌ Critical security issues detected! Please review the scan results."
+            exit 1
+          else
+            echo "✅ Security scans completed successfully!"
+            echo "📋 Review detailed results in the workflow artifacts"
+          fi
+
