@@ -7,6 +7,13 @@ on:
   workflow_dispatch:
   pull_request:
     branches:
+
+# CRITICAL FIX: Add proper permissions for security scanning
+permissions:
+  security-events: write # Required for uploading SARIF results to Security tab
+  actions: read          # Required for CodeQL to read metadata about other actions
+  contents: read         # Required for all actions to check out and read the code
+
       - master
       - main
 
@@ -25,7 +32,7 @@ jobs:
           fetch-depth: 0
 
       - name: Run TruffleHog
-        uses: trufflesecurity/trufflehog@main
+        uses: trufflesecurity/trufflehog@v3.82.13
         with:
           path: ./
           base: main
