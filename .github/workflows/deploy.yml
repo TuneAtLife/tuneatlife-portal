@@ -109,10 +109,10 @@ jobs:
       - name: Verify deployment health
         run: |
           sleep 30
-          flyctl status --app tuneatlife-portal
+          flyctl status --app tuneatlife-beta-portal
           
           # Test health endpoint
-          HEALTH_URL="https://tuneatlife-portal.fly.dev/health"
+          HEALTH_URL="https://beta.tuneatlife.com/health"
           echo "Testing health endpoint: $HEALTH_URL"
           
           for i in {1..5}; do
@@ -129,7 +129,7 @@ jobs:
           done
           
           # Test main application
-          APP_URL="https://tuneatlife-portal.fly.dev"
+          APP_URL="https://beta.tuneatlife.com"
           echo "Testing main application: $APP_URL"
           
           if curl -f -s "$APP_URL" | grep -q "TuneAtLife"; then
@@ -152,9 +152,9 @@ jobs:
         if: needs.deploy.result == 'success'
         run: |
           echo "🎉 TuneAtLife Portal deployed successfully!"
-          echo "🔗 Application URL: https://tuneatlife-portal.fly.dev"
-          echo "🏥 Health Check: https://tuneatlife-portal.fly.dev/health"
-          echo "📱 Portal Dashboard: https://tuneatlife-portal.fly.dev"
+          echo "🔗 Application URL: https://beta.tuneatlife.com"
+          echo "🏥 Health Check: https://beta.tuneatlife.com/health"
+          echo "📱 Portal Dashboard: https://beta.tuneatlife.com"
 
       - name: Deployment Failure
         if: needs.deploy.result == 'failure'
