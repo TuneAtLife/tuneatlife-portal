@@ -52,7 +52,7 @@ http {
     types_hash_max_size 2048;
     
     server {
-        listen 3000;
+        listen 0.0.0.0:3000;
         server_name localhost;
         root /usr/share/nginx/html;
         index index.html;
