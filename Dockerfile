@@ -28,7 +28,6 @@ FROM nginx:alpine
 COPY <<EOF /etc/nginx/nginx.conf
 user nextjs;
 worker_processes auto;
-worker_connections 1024;
 error_log /var/log/nginx/error.log warn;
 pid /tmp/nginx.pid;
 
