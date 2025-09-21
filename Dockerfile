@@ -24,11 +24,11 @@ RUN pnpm build
 # Production stage
 FROM nginx:alpine
 
-# Copy custom nginx configuration with PID file fix
+# Copy custom nginx configuration for non-root operation
 COPY <<EOF /etc/nginx/nginx.conf
-user nextjs;
+# Remove user directive - not needed when running as non-root
 worker_processes auto;
-error_log /var/log/nginx/error.log warn;
+error_log /tmp/nginx_error.log warn;
 pid /tmp/nginx.pid;
 
 events {
@@ -39,11 +39,18 @@ http {
     include /etc/nginx/mime.types;
     default_type application/octet-stream;
     
+    # Use tmp directory for nginx temp files
+    client_body_temp_path /tmp/client_temp;
+    proxy_temp_path /tmp/proxy_temp_path;
+    fastcgi_temp_path /tmp/fastcgi_temp;
+    uwsgi_temp_path /tmp/uwsgi_temp;
+    scgi_temp_path /tmp/scgi_temp;
+    
     log_format main '$remote_addr - $remote_user [$time_local] "$request" '
                     '$status $body_bytes_sent "$http_referer" '
                     '"$http_user_agent" "$http_x_forwarded_for"';
     
-    access_log /var/log/nginx/access.log main;
+    access_log /tmp/nginx_access.log main;
     
     sendfile on;
     tcp_nopush on;
@@ -52,7 +59,7 @@ http {
     types_hash_max_size 2048;
     
     server {
-        listen 0.0.0.0:3000;
+        listen 3000;
         server_name localhost;
         root /usr/share/nginx/html;
         index index.html;
@@ -78,17 +85,17 @@ http {
 
         # Handle client-side routing
         location / {
-            try_files $uri $uri/ /index.html;
+            try_files \$uri \$uri/ /index.html;
         }
 
         # Cache static assets
-        location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$ {
+        location ~* \\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)\$ {
             expires 1y;
             add_header Cache-Control "public, immutable";
         }
 
         # Security: deny access to hidden files
-        location ~ /\. {
+        location ~ /\\. {
             deny all;
         }
     }
@@ -102,11 +109,10 @@ COPY --from=build /app/dist /usr/share/nginx/html
 RUN addgroup -g 1001 -S nodejs && \
     adduser -S nextjs -u 1001 && \
     chown -R nextjs:nodejs /usr/share/nginx/html && \
-    chown -R nextjs:nodejs /var/cache/nginx && \
-    chown -R nextjs:nodejs /var/log/nginx && \
     chown -R nextjs:nodejs /etc/nginx && \
-    mkdir -p /tmp && \
-    chown nextjs:nodejs /tmp
+    mkdir -p /tmp/client_temp /tmp/proxy_temp_path /tmp/fastcgi_temp /tmp/uwsgi_temp /tmp/scgi_temp && \
+    chown -R nextjs:nodejs /tmp && \
+    chmod -R 755 /tmp
 
 # Switch to non-root user
 USER nextjs
