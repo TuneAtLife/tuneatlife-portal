@@ -1,0 +1,510 @@
+{
+  "experts": {
+    "alexrivera": {
+      "prompt": "Create a professional headshot portrait for Alex Rivera, a Fitness Coach expert. \n    Style: modern, clean, professional, wellness-focused, diverse, inclusive\n    Demographics: Latino Male, approximately 35 years old\n    Appearance: Professional, approachable, confident, friendly smile\n    Attire: Professional but approachable (avoid overly formal suits)\n    Background: Soft, neutral gradient background in wellness colors\n    Lighting: Soft, natural lighting that flatters the face\n    Quality: High-resolution, professional headshot quality\n    Brand colors: Incorporate subtle #667eea accents\n    \n    The image should convey expertise, trustworthiness, and cultural sensitivity.\n    Avoid: Stock photo appearance, overly staged poses, distracting elements",
+      "timestamp": "2025-09-21T06:48:23.695Z",
+      "brandGuidelines": {
+        "colorPalette": {
+          "primary": "#667eea",
+          "secondary": "#764ba2",
+          "accent": "#4ade80",
+          "neutral": "#f8fafc",
+          "text": "#1e293b"
+        },
+        "style": "modern, clean, professional, wellness-focused, diverse, inclusive",
+        "tone": "encouraging, supportive, non-judgmental, empowering",
+        "visualThemes": "health, wellness, AI technology, cultural diversity, personal growth"
+      }
+    },
+    "mayachen": {
+      "prompt": "Create a professional headshot portrait for Maya Chen, a Nutritionist expert. \n    Style: modern, clean, professional, wellness-focused, diverse, inclusive\n    Demographics: Asian Female, approximately 32 years old\n    Appearance: Professional, approachable, confident, friendly smile\n    Attire: Professional but approachable (avoid overly formal suits)\n    Background: Soft, neutral gradient background in wellness colors\n    Lighting: Soft, natural lighting that flatters the face\n    Quality: High-resolution, professional headshot quality\n    Brand colors: Incorporate subtle #667eea accents\n    \n    The image should convey expertise, trustworthiness, and cultural sensitivity.\n    Avoid: Stock photo appearance, overly staged poses, distracting elements",
+      "timestamp": "2025-09-21T06:48:23.695Z",
+      "brandGuidelines": {
+        "colorPalette": {
+          "primary": "#667eea",
+          "secondary": "#764ba2",
+          "accent": "#4ade80",
+          "neutral": "#f8fafc",
+          "text": "#1e293b"
+        },
+        "style": "modern, clean, professional, wellness-focused, diverse, inclusive",
+        "tone": "encouraging, supportive, non-judgmental, empowering",
+        "visualThemes": "health, wellness, AI technology, cultural diversity, personal growth"
+      }
+    },
+    "sarahkim": {
+      "prompt": "Create a professional headshot portrait for Sarah Kim, a Mindfulness Expert expert. \n    Style: modern, clean, professional, wellness-focused, diverse, inclusive\n    Demographics: Korean Female, approximately 38 years old\n    Appearance: Professional, approachable, confident, friendly smile\n    Attire: Professional but approachable (avoid overly formal suits)\n    Background: Soft, neutral gradient background in wellness colors\n    Lighting: Soft, natural lighting that flatters the face\n    Quality: High-resolution, professional headshot quality\n    Brand colors: Incorporate subtle #667eea accents\n    \n    The image should convey expertise, trustworthiness, and cultural sensitivity.\n    Avoid: Stock photo appearance, overly staged poses, distracting elements",
+      "timestamp": "2025-09-21T06:48:23.696Z",
+      "brandGuidelines": {
+        "colorPalette": {
+          "primary": "#667eea",
+          "secondary": "#764ba2",
+          "accent": "#4ade80",
+          "neutral": "#f8fafc",
+          "text": "#1e293b"
+        },
+        "style": "modern, clean, professional, wellness-focused, diverse, inclusive",
+        "tone": "encouraging, supportive, non-judgmental, empowering",
+        "visualThemes": "health, wellness, AI technology, cultural diversity, personal growth"
+      }
+    },
+    "jameswilson": {
+      "prompt": "Create a professional headshot portrait for James Wilson, a Sleep Specialist expert. \n    Style: modern, clean, professional, wellness-focused, diverse, inclusive\n    Demographics: African American Male, approximately 42 years old\n    Appearance: Professional, approachable, confident, friendly smile\n    Attire: Professional but approachable (avoid overly formal suits)\n    Background: Soft, neutral gradient background in wellness colors\n    Lighting: Soft, natural lighting that flatters the face\n    Quality: High-resolution, professional headshot quality\n    Brand colors: Incorporate subtle #667eea accents\n    \n    The image should convey expertise, trustworthiness, and cultural sensitivity.\n    Avoid: Stock photo appearance, overly staged poses, distracting elements",
+      "timestamp": "2025-09-21T06:48:23.696Z",
+      "brandGuidelines": {
+        "colorPalette": {
+          "primary": "#667eea",
+          "secondary": "#764ba2",
+          "accent": "#4ade80",
+          "neutral": "#f8fafc",
+          "text": "#1e293b"
+        },
+        "style": "modern, clean, professional, wellness-focused, diverse, inclusive",
+        "tone": "encouraging, supportive, non-judgmental, empowering",
+        "visualThemes": "health, wellness, AI technology, cultural diversity, personal growth"
+      }
+    },
+    "lisapark": {
+      "prompt": "Create a professional headshot portrait for Lisa Park, a Supplement Advisor expert. \n    Style: modern, clean, professional, wellness-focused, diverse, inclusive\n    Demographics: Mixed Female, approximately 29 years old\n    Appearance: Professional, approachable, confident, friendly smile\n    Attire: Professional but approachable (avoid overly formal suits)\n    Background: Soft, neutral gradient background in wellness colors\n    Lighting: Soft, natural lighting that flatters the face\n    Quality: High-resolution, professional headshot quality\n    Brand colors: Incorporate subtle #667eea accents\n    \n    The image should convey expertise, trustworthiness, and cultural sensitivity.\n    Avoid: Stock photo appearance, overly staged poses, distracting elements",
+      "timestamp": "2025-09-21T06:48:23.696Z",
+      "brandGuidelines": {
+        "colorPalette": {
+          "primary": "#667eea",
+          "secondary": "#764ba2",
+          "accent": "#4ade80",
+          "neutral": "#f8fafc",
+          "text": "#1e293b"
+        },
+        "style": "modern, clean, professional, wellness-focused, diverse, inclusive",
+        "tone": "encouraging, supportive, non-judgmental, empowering",
+        "visualThemes": "health, wellness, AI technology, cultural diversity, personal growth"
+      }
+    }
+  },
+  "testimonials": {
+    "sarahm": {
+      "prompt": "Create an authentic, friendly portrait for Sarah M., a Working Mom.\n    Demographics: Caucasian female, 34\n    Context: Person who achieved lost 28lbs through wellness journey\n    Style: Natural, authentic, approachable (not overly polished)\n    Expression: Genuine smile, confident, happy, healthy glow\n    Attire: Casual professional or activewear depending on role\n    Background: Soft, out-of-focus natural or home environment\n    Lighting: Natural, warm lighting\n    Quality: Authentic feel, not overly staged or stock-photo-like\n    Diversity: Represent diverse backgrounds and body types authentically\n    \n    The image should feel like a real person who has succeeded in their wellness journey.\n    Avoid: Stock photo appearance, overly perfect retouching, generic poses",
+      "timestamp": "2025-09-21T06:48:23.696Z",
+      "brandGuidelines": {
+        "colorPalette": {
+          "primary": "#667eea",
+          "secondary": "#764ba2",
+          "accent": "#4ade80",
+          "neutral": "#f8fafc",
+          "text": "#1e293b"
+        },
+        "style": "modern, clean, professional, wellness-focused, diverse, inclusive",
+        "tone": "encouraging, supportive, non-judgmental, empowering",
+        "visualThemes": "health, wellness, AI technology, cultural diversity, personal growth"
+      }
+    },
+    "davidl": {
+      "prompt": "Create an authentic, friendly portrait for David L., a CEO.\n    Demographics: African American male, 45\n    Context: Person who achieved improved sleep 85% through wellness journey\n    Style: Natural, authentic, approachable (not overly polished)\n    Expression: Genuine smile, confident, happy, healthy glow\n    Attire: Casual professional or activewear depending on role\n    Background: Soft, out-of-focus natural or home environment\n    Lighting: Natural, warm lighting\n    Quality: Authentic feel, not overly staged or stock-photo-like\n    Diversity: Represent diverse backgrounds and body types authentically\n    \n    The image should feel like a real person who has succeeded in their wellness journey.\n    Avoid: Stock photo appearance, overly perfect retouching, generic poses",
+      "timestamp": "2025-09-21T06:48:23.696Z",
+      "brandGuidelines": {
+        "colorPalette": {
+          "primary": "#667eea",
+          "secondary": "#764ba2",
+          "accent": "#4ade80",
+          "neutral": "#f8fafc",
+          "text": "#1e293b"
+        },
+        "style": "modern, clean, professional, wellness-focused, diverse, inclusive",
+        "tone": "encouraging, supportive, non-judgmental, empowering",
+        "visualThemes": "health, wellness, AI technology, cultural diversity, personal growth"
+      }
+    },
+    "mariag": {
+      "prompt": "Create an authentic, friendly portrait for Maria G., a Fitness Enthusiast.\n    Demographics: Latina female, 28\n    Context: Person who achieved gained 15lbs muscle through wellness journey\n    Style: Natural, authentic, approachable (not overly polished)\n    Expression: Genuine smile, confident, happy, healthy glow\n    Attire: Casual professional or activewear depending on role\n    Background: Soft, out-of-focus natural or home environment\n    Lighting: Natural, warm lighting\n    Quality: Authentic feel, not overly staged or stock-photo-like\n    Diversity: Represent diverse backgrounds and body types authentically\n    \n    The image should feel like a real person who has succeeded in their wellness journey.\n    Avoid: Stock photo appearance, overly perfect retouching, generic poses",
+      "timestamp": "2025-09-21T06:48:23.696Z",
+      "brandGuidelines": {
+        "colorPalette": {
+          "primary": "#667eea",
+          "secondary": "#764ba2",
+          "accent": "#4ade80",
+          "neutral": "#f8fafc",
+          "text": "#1e293b"
+        },
+        "style": "modern, clean, professional, wellness-focused, diverse, inclusive",
+        "tone": "encouraging, supportive, non-judgmental, empowering",
+        "visualThemes": "health, wellness, AI technology, cultural diversity, personal growth"
+      }
+    },
+    "jamesk": {
+      "prompt": "Create an authentic, friendly portrait for James K., a Executive.\n    Demographics: Asian male, 39\n    Context: Person who achieved increased energy 200% through wellness journey\n    Style: Natural, authentic, approachable (not overly polished)\n    Expression: Genuine smile, confident, happy, healthy glow\n    Attire: Casual professional or activewear depending on role\n    Background: Soft, out-of-focus natural or home environment\n    Lighting: Natural, warm lighting\n    Quality: Authentic feel, not overly staged or stock-photo-like\n    Diversity: Represent diverse backgrounds and body types authentically\n    \n    The image should feel like a real person who has succeeded in their wellness journey.\n    Avoid: Stock photo appearance, overly perfect retouching, generic poses",
+      "timestamp": "2025-09-21T06:48:23.696Z",
+      "brandGuidelines": {
+        "colorPalette": {
+          "primary": "#667eea",
+          "secondary": "#764ba2",
+          "accent": "#4ade80",
+          "neutral": "#f8fafc",
+          "text": "#1e293b"
+        },
+        "style": "modern, clean, professional, wellness-focused, diverse, inclusive",
+        "tone": "encouraging, supportive, non-judgmental, empowering",
+        "visualThemes": "health, wellness, AI technology, cultural diversity, personal growth"
+      }
+    },
+    "lisap": {
+      "prompt": "Create an authentic, friendly portrait for Lisa P., a New Mom.\n    Demographics: Caucasian female, 31\n    Context: Person who achieved reduced stress 70% through wellness journey\n    Style: Natural, authentic, approachable (not overly polished)\n    Expression: Genuine smile, confident, happy, healthy glow\n    Attire: Casual professional or activewear depending on role\n    Background: Soft, out-of-focus natural or home environment\n    Lighting: Natural, warm lighting\n    Quality: Authentic feel, not overly staged or stock-photo-like\n    Diversity: Represent diverse backgrounds and body types authentically\n    \n    The image should feel like a real person who has succeeded in their wellness journey.\n    Avoid: Stock photo appearance, overly perfect retouching, generic poses",
+      "timestamp": "2025-09-21T06:48:23.696Z",
+      "brandGuidelines": {
+        "colorPalette": {
+          "primary": "#667eea",
+          "secondary": "#764ba2",
+          "accent": "#4ade80",
+          "neutral": "#f8fafc",
+          "text": "#1e293b"
+        },
+        "style": "modern, clean, professional, wellness-focused, diverse, inclusive",
+        "tone": "encouraging, supportive, non-judgmental, empowering",
+        "visualThemes": "health, wellness, AI technology, cultural diversity, personal growth"
+      }
+    }
+  },
+  "icons": {
+    "aibrain": {
+      "prompt": "Create a professional icon: Minimalist brain icon with subtle AI/tech elements like circuit patterns\n    Style: modern, clean, professional, wellness-focused, diverse, inclusive, minimalist, clean lines\n    Colors: Primary #667eea, with accents\n    Format: Vector-style, scalable design suitable for web/mobile\n    Background: Transparent or subtle gradient\n    Size: Square format, centered design\n    Quality: Crisp, clean lines, professional finish\n    Brand consistency: Matches TuneAtLife wellness platform aesthetic\n    \n    The icon should be immediately recognizable and work at small sizes.",
+      "timestamp": "2025-09-21T06:48:23.696Z",
+      "brandGuidelines": {
+        "colorPalette": {
+          "primary": "#667eea",
+          "secondary": "#764ba2",
+          "accent": "#4ade80",
+          "neutral": "#f8fafc",
+          "text": "#1e293b"
+        },
+        "style": "modern, clean, professional, wellness-focused, diverse, inclusive",
+        "tone": "encouraging, supportive, non-judgmental, empowering",
+        "visualThemes": "health, wellness, AI technology, cultural diversity, personal growth"
+      }
+    },
+    "culturalglobe": {
+      "prompt": "Create a professional icon: Globe with diverse cultural symbols and patterns around it\n    Style: modern, clean, professional, wellness-focused, diverse, inclusive, minimalist, clean lines\n    Colors: Primary #667eea, with accents\n    Format: Vector-style, scalable design suitable for web/mobile\n    Background: Transparent or subtle gradient\n    Size: Square format, centered design\n    Quality: Crisp, clean lines, professional finish\n    Brand consistency: Matches TuneAtLife wellness platform aesthetic\n    \n    The icon should be immediately recognizable and work at small sizes.",
+      "timestamp": "2025-09-21T06:48:23.696Z",
+      "brandGuidelines": {
+        "colorPalette": {
+          "primary": "#667eea",
+          "secondary": "#764ba2",
+          "accent": "#4ade80",
+          "neutral": "#f8fafc",
+          "text": "#1e293b"
+        },
+        "style": "modern, clean, professional, wellness-focused, diverse, inclusive",
+        "tone": "encouraging, supportive, non-judgmental, empowering",
+        "visualThemes": "health, wellness, AI technology, cultural diversity, personal growth"
+      }
+    },
+    "camerafood": {
+      "prompt": "Create a professional icon: Modern camera icon focused on healthy, diverse food\n    Style: modern, clean, professional, wellness-focused, diverse, inclusive, minimalist, clean lines\n    Colors: Primary #667eea, with accents\n    Format: Vector-style, scalable design suitable for web/mobile\n    Background: Transparent or subtle gradient\n    Size: Square format, centered design\n    Quality: Crisp, clean lines, professional finish\n    Brand consistency: Matches TuneAtLife wellness platform aesthetic\n    \n    The icon should be immediately recognizable and work at small sizes.",
+      "timestamp": "2025-09-21T06:48:23.696Z",
+      "brandGuidelines": {
+        "colorPalette": {
+          "primary": "#667eea",
+          "secondary": "#764ba2",
+          "accent": "#4ade80",
+          "neutral": "#f8fafc",
+          "text": "#1e293b"
+        },
+        "style": "modern, clean, professional, wellness-focused, diverse, inclusive",
+        "tone": "encouraging, supportive, non-judgmental, empowering",
+        "visualThemes": "health, wellness, AI technology, cultural diversity, personal growth"
+      }
+    },
+    "progresschart": {
+      "prompt": "Create a professional icon: Clean upward trending graph with wellness metrics\n    Style: modern, clean, professional, wellness-focused, diverse, inclusive, minimalist, clean lines\n    Colors: Primary #667eea, with accents\n    Format: Vector-style, scalable design suitable for web/mobile\n    Background: Transparent or subtle gradient\n    Size: Square format, centered design\n    Quality: Crisp, clean lines, professional finish\n    Brand consistency: Matches TuneAtLife wellness platform aesthetic\n    \n    The icon should be immediately recognizable and work at small sizes.",
+      "timestamp": "2025-09-21T06:48:23.696Z",
+      "brandGuidelines": {
+        "colorPalette": {
+          "primary": "#667eea",
+          "secondary": "#764ba2",
+          "accent": "#4ade80",
+          "neutral": "#f8fafc",
+          "text": "#1e293b"
+        },
+        "style": "modern, clean, professional, wellness-focused, diverse, inclusive",
+        "tone": "encouraging, supportive, non-judgmental, empowering",
+        "visualThemes": "health, wellness, AI technology, cultural diversity, personal growth"
+      }
+    },
+    "goalstarget": {
+      "prompt": "Create a professional icon: Target/bullseye with achievement elements\n    Style: modern, clean, professional, wellness-focused, diverse, inclusive, minimalist, clean lines\n    Colors: Primary #667eea, with accents\n    Format: Vector-style, scalable design suitable for web/mobile\n    Background: Transparent or subtle gradient\n    Size: Square format, centered design\n    Quality: Crisp, clean lines, professional finish\n    Brand consistency: Matches TuneAtLife wellness platform aesthetic\n    \n    The icon should be immediately recognizable and work at small sizes.",
+      "timestamp": "2025-09-21T06:48:23.696Z",
+      "brandGuidelines": {
+        "colorPalette": {
+          "primary": "#667eea",
+          "secondary": "#764ba2",
+          "accent": "#4ade80",
+          "neutral": "#f8fafc",
+          "text": "#1e293b"
+        },
+        "style": "modern, clean, professional, wellness-focused, diverse, inclusive",
+        "tone": "encouraging, supportive, non-judgmental, empowering",
+        "visualThemes": "health, wellness, AI technology, cultural diversity, personal growth"
+      }
+    },
+    "healthheart": {
+      "prompt": "Create a professional icon: Heart symbol with wellness/vitality elements\n    Style: modern, clean, professional, wellness-focused, diverse, inclusive, minimalist, clean lines\n    Colors: Primary #667eea, with accents\n    Format: Vector-style, scalable design suitable for web/mobile\n    Background: Transparent or subtle gradient\n    Size: Square format, centered design\n    Quality: Crisp, clean lines, professional finish\n    Brand consistency: Matches TuneAtLife wellness platform aesthetic\n    \n    The icon should be immediately recognizable and work at small sizes.",
+      "timestamp": "2025-09-21T06:48:23.696Z",
+      "brandGuidelines": {
+        "colorPalette": {
+          "primary": "#667eea",
+          "secondary": "#764ba2",
+          "accent": "#4ade80",
+          "neutral": "#f8fafc",
+          "text": "#1e293b"
+        },
+        "style": "modern, clean, professional, wellness-focused, diverse, inclusive",
+        "tone": "encouraging, supportive, non-judgmental, empowering",
+        "visualThemes": "health, wellness, AI technology, cultural diversity, personal growth"
+      }
+    },
+    "fitnessdumbbell": {
+      "prompt": "Create a professional icon: Modern dumbbell with energy/movement lines\n    Style: modern, clean, professional, wellness-focused, diverse, inclusive, minimalist, clean lines\n    Colors: Primary #667eea, with accents\n    Format: Vector-style, scalable design suitable for web/mobile\n    Background: Transparent or subtle gradient\n    Size: Square format, centered design\n    Quality: Crisp, clean lines, professional finish\n    Brand consistency: Matches TuneAtLife wellness platform aesthetic\n    \n    The icon should be immediately recognizable and work at small sizes.",
+      "timestamp": "2025-09-21T06:48:23.696Z",
+      "brandGuidelines": {
+        "colorPalette": {
+          "primary": "#667eea",
+          "secondary": "#764ba2",
+          "accent": "#4ade80",
+          "neutral": "#f8fafc",
+          "text": "#1e293b"
+        },
+        "style": "modern, clean, professional, wellness-focused, diverse, inclusive",
+        "tone": "encouraging, supportive, non-judgmental, empowering",
+        "visualThemes": "health, wellness, AI technology, cultural diversity, personal growth"
+      }
+    },
+    "nutritionapple": {
+      "prompt": "Create a professional icon: Stylized apple or healthy food arrangement\n    Style: modern, clean, professional, wellness-focused, diverse, inclusive, minimalist, clean lines\n    Colors: Primary #667eea, with accents\n    Format: Vector-style, scalable design suitable for web/mobile\n    Background: Transparent or subtle gradient\n    Size: Square format, centered design\n    Quality: Crisp, clean lines, professional finish\n    Brand consistency: Matches TuneAtLife wellness platform aesthetic\n    \n    The icon should be immediately recognizable and work at small sizes.",
+      "timestamp": "2025-09-21T06:48:23.696Z",
+      "brandGuidelines": {
+        "colorPalette": {
+          "primary": "#667eea",
+          "secondary": "#764ba2",
+          "accent": "#4ade80",
+          "neutral": "#f8fafc",
+          "text": "#1e293b"
+        },
+        "style": "modern, clean, professional, wellness-focused, diverse, inclusive",
+        "tone": "encouraging, supportive, non-judgmental, empowering",
+        "visualThemes": "health, wellness, AI technology, cultural diversity, personal growth"
+      }
+    },
+    "sleepmoon": {
+      "prompt": "Create a professional icon: Crescent moon with peaceful, restful elements\n    Style: modern, clean, professional, wellness-focused, diverse, inclusive, minimalist, clean lines\n    Colors: Primary #667eea, with accents\n    Format: Vector-style, scalable design suitable for web/mobile\n    Background: Transparent or subtle gradient\n    Size: Square format, centered design\n    Quality: Crisp, clean lines, professional finish\n    Brand consistency: Matches TuneAtLife wellness platform aesthetic\n    \n    The icon should be immediately recognizable and work at small sizes.",
+      "timestamp": "2025-09-21T06:48:23.696Z",
+      "brandGuidelines": {
+        "colorPalette": {
+          "primary": "#667eea",
+          "secondary": "#764ba2",
+          "accent": "#4ade80",
+          "neutral": "#f8fafc",
+          "text": "#1e293b"
+        },
+        "style": "modern, clean, professional, wellness-focused, diverse, inclusive",
+        "tone": "encouraging, supportive, non-judgmental, empowering",
+        "visualThemes": "health, wellness, AI technology, cultural diversity, personal growth"
+      }
+    },
+    "mindfulnessmeditation": {
+      "prompt": "Create a professional icon: Zen/meditation symbol with balance elements\n    Style: modern, clean, professional, wellness-focused, diverse, inclusive, minimalist, clean lines\n    Colors: Primary #667eea, with accents\n    Format: Vector-style, scalable design suitable for web/mobile\n    Background: Transparent or subtle gradient\n    Size: Square format, centered design\n    Quality: Crisp, clean lines, professional finish\n    Brand consistency: Matches TuneAtLife wellness platform aesthetic\n    \n    The icon should be immediately recognizable and work at small sizes.",
+      "timestamp": "2025-09-21T06:48:23.696Z",
+      "brandGuidelines": {
+        "colorPalette": {
+          "primary": "#667eea",
+          "secondary": "#764ba2",
+          "accent": "#4ade80",
+          "neutral": "#f8fafc",
+          "text": "#1e293b"
+        },
+        "style": "modern, clean, professional, wellness-focused, diverse, inclusive",
+        "tone": "encouraging, supportive, non-judgmental, empowering",
+        "visualThemes": "health, wellness, AI technology, cultural diversity, personal growth"
+      }
+    },
+    "supplementspills": {
+      "prompt": "Create a professional icon: Natural supplement/vitamin representation\n    Style: modern, clean, professional, wellness-focused, diverse, inclusive, minimalist, clean lines\n    Colors: Primary #667eea, with accents\n    Format: Vector-style, scalable design suitable for web/mobile\n    Background: Transparent or subtle gradient\n    Size: Square format, centered design\n    Quality: Crisp, clean lines, professional finish\n    Brand consistency: Matches TuneAtLife wellness platform aesthetic\n    \n    The icon should be immediately recognizable and work at small sizes.",
+      "timestamp": "2025-09-21T06:48:23.696Z",
+      "brandGuidelines": {
+        "colorPalette": {
+          "primary": "#667eea",
+          "secondary": "#764ba2",
+          "accent": "#4ade80",
+          "neutral": "#f8fafc",
+          "text": "#1e293b"
+        },
+        "style": "modern, clean, professional, wellness-focused, diverse, inclusive",
+        "tone": "encouraging, supportive, non-judgmental, empowering",
+        "visualThemes": "health, wellness, AI technology, cultural diversity, personal growth"
+      }
+    }
+  },
+  "features": {
+    "foodphoto-analysis": {
+      "prompt": "Mobile phone screen showing food photo analysis feature.\n        Screen content: Photo of diverse, healthy meal with AI analysis overlay\n        UI elements: Clean, modern interface with nutrition data, suggestions\n        Food: Culturally diverse, appetizing, healthy meal\n        Analysis: Calories, nutrients, personalized recommendations visible\n    Style: modern, clean, professional, wellness-focused, diverse, inclusive\n    Colors: Incorporate #667eea and #4ade80\n    Quality: High-resolution, professional, modern UI/UX design\n    Brand consistency: TuneAtLife wellness platform aesthetic\n    Cultural sensitivity: Respectful representation of diverse cultures\n    \n    The image should effectively demonstrate the feature's value and appeal.",
+      "timestamp": "2025-09-21T06:48:23.696Z",
+      "brandGuidelines": {
+        "colorPalette": {
+          "primary": "#667eea",
+          "secondary": "#764ba2",
+          "accent": "#4ade80",
+          "neutral": "#f8fafc",
+          "text": "#1e293b"
+        },
+        "style": "modern, clean, professional, wellness-focused, diverse, inclusive",
+        "tone": "encouraging, supportive, non-judgmental, empowering",
+        "visualThemes": "health, wellness, AI technology, cultural diversity, personal growth"
+      }
+    },
+    "aichat-interface": {
+      "prompt": "Mobile chat interface with AI wellness coach conversation.\n        Screen: Clean, modern chat UI with helpful, supportive AI responses\n        Messages: Encouraging, personalized wellness advice\n        Avatar: Friendly AI coach representation\n        UI: TuneAtLife branded interface elements\n    Style: modern, clean, professional, wellness-focused, diverse, inclusive\n    Colors: Incorporate #667eea and #4ade80\n    Quality: High-resolution, professional, modern UI/UX design\n    Brand consistency: TuneAtLife wellness platform aesthetic\n    Cultural sensitivity: Respectful representation of diverse cultures\n    \n    The image should effectively demonstrate the feature's value and appeal.",
+      "timestamp": "2025-09-21T06:48:23.696Z",
+      "brandGuidelines": {
+        "colorPalette": {
+          "primary": "#667eea",
+          "secondary": "#764ba2",
+          "accent": "#4ade80",
+          "neutral": "#f8fafc",
+          "text": "#1e293b"
+        },
+        "style": "modern, clean, professional, wellness-focused, diverse, inclusive",
+        "tone": "encouraging, supportive, non-judgmental, empowering",
+        "visualThemes": "health, wellness, AI technology, cultural diversity, personal growth"
+      }
+    },
+    "progresscharts": {
+      "prompt": "Wellness progress dashboard with beautiful data visualization.\n        Charts: Weight, energy, sleep, mood tracking over time\n        Style: Clean, colorful, encouraging progress trends\n        Data: Realistic improvement patterns\n        UI: Professional dashboard design\n    Style: modern, clean, professional, wellness-focused, diverse, inclusive\n    Colors: Incorporate #667eea and #4ade80\n    Quality: High-resolution, professional, modern UI/UX design\n    Brand consistency: TuneAtLife wellness platform aesthetic\n    Cultural sensitivity: Respectful representation of diverse cultures\n    \n    The image should effectively demonstrate the feature's value and appeal.",
+      "timestamp": "2025-09-21T06:48:23.696Z",
+      "brandGuidelines": {
+        "colorPalette": {
+          "primary": "#667eea",
+          "secondary": "#764ba2",
+          "accent": "#4ade80",
+          "neutral": "#f8fafc",
+          "text": "#1e293b"
+        },
+        "style": "modern, clean, professional, wellness-focused, diverse, inclusive",
+        "tone": "encouraging, supportive, non-judgmental, empowering",
+        "visualThemes": "health, wellness, AI technology, cultural diversity, personal growth"
+      }
+    },
+    "culturalmeals": {
+      "prompt": "Collage of diverse, healthy meals from different cultures.\n        Foods: Asian, Latin, Mediterranean, African, Middle Eastern cuisine\n        Style: Vibrant, appetizing, well-composed food photography\n        Layout: Artistic arrangement showing global healthy eating\n        Quality: High-resolution, professional food photography\n    Style: modern, clean, professional, wellness-focused, diverse, inclusive\n    Colors: Incorporate #667eea and #4ade80\n    Quality: High-resolution, professional, modern UI/UX design\n    Brand consistency: TuneAtLife wellness platform aesthetic\n    Cultural sensitivity: Respectful representation of diverse cultures\n    \n    The image should effectively demonstrate the feature's value and appeal.",
+      "timestamp": "2025-09-21T06:48:23.696Z",
+      "brandGuidelines": {
+        "colorPalette": {
+          "primary": "#667eea",
+          "secondary": "#764ba2",
+          "accent": "#4ade80",
+          "neutral": "#f8fafc",
+          "text": "#1e293b"
+        },
+        "style": "modern, clean, professional, wellness-focused, diverse, inclusive",
+        "tone": "encouraging, supportive, non-judgmental, empowering",
+        "visualThemes": "health, wellness, AI technology, cultural diversity, personal growth"
+      }
+    }
+  },
+  "socialProof": {
+    "userstatistics": {
+      "prompt": "Infographic showing TuneAtLife success statistics.\n        Data: TuneAtLife success metrics (10,000+ users, 89% see results, etc.)\n        Style: Clean, modern infographic design\n        Icons: Minimalist icons representing each statistic\n        Layout: Visually appealing arrangement of data points\n    Brand colors: #667eea, #4ade80\n    Style: modern, clean, professional, wellness-focused, diverse, inclusive\n    Tone: encouraging, supportive, non-judgmental, empowering\n    Quality: Professional graphic design, suitable for web/mobile\n    Cultural sensitivity: Inclusive representation of diverse users\n    \n    The graphic should build trust and credibility for the TuneAtLife platform.",
+      "timestamp": "2025-09-21T06:48:23.696Z",
+      "brandGuidelines": {
+        "colorPalette": {
+          "primary": "#667eea",
+          "secondary": "#764ba2",
+          "accent": "#4ade80",
+          "neutral": "#f8fafc",
+          "text": "#1e293b"
+        },
+        "style": "modern, clean, professional, wellness-focused, diverse, inclusive",
+        "tone": "encouraging, supportive, non-judgmental, empowering",
+        "visualThemes": "health, wellness, AI technology, cultural diversity, personal growth"
+      }
+    },
+    "ratingvisual": {
+      "prompt": "5-star rating display with user review highlights.\n        Rating: 4.9/5 stars prominently displayed\n        Reviews: Key positive quotes from users\n        Style: Trustworthy, professional presentation\n        Elements: Star icons, testimonial snippets\n    Brand colors: #667eea, #4ade80\n    Style: modern, clean, professional, wellness-focused, diverse, inclusive\n    Tone: encouraging, supportive, non-judgmental, empowering\n    Quality: Professional graphic design, suitable for web/mobile\n    Cultural sensitivity: Inclusive representation of diverse users\n    \n    The graphic should build trust and credibility for the TuneAtLife platform.",
+      "timestamp": "2025-09-21T06:48:23.696Z",
+      "brandGuidelines": {
+        "colorPalette": {
+          "primary": "#667eea",
+          "secondary": "#764ba2",
+          "accent": "#4ade80",
+          "neutral": "#f8fafc",
+          "text": "#1e293b"
+        },
+        "style": "modern, clean, professional, wellness-focused, diverse, inclusive",
+        "tone": "encouraging, supportive, non-judgmental, empowering",
+        "visualThemes": "health, wellness, AI technology, cultural diversity, personal growth"
+      }
+    },
+    "transformationcollage": {
+      "prompt": "Before/after style wellness transformation showcase.\n        Style: Respectful, inspiring representation of health journeys\n        Focus: Energy, confidence, wellness improvements (not just weight)\n        Layout: Side-by-side or progression-style arrangement\n        Tone: Encouraging, celebrating personal growth\n    Brand colors: #667eea, #4ade80\n    Style: modern, clean, professional, wellness-focused, diverse, inclusive\n    Tone: encouraging, supportive, non-judgmental, empowering\n    Quality: Professional graphic design, suitable for web/mobile\n    Cultural sensitivity: Inclusive representation of diverse users\n    \n    The graphic should build trust and credibility for the TuneAtLife platform.",
+      "timestamp": "2025-09-21T06:48:23.696Z",
+      "brandGuidelines": {
+        "colorPalette": {
+          "primary": "#667eea",
+          "secondary": "#764ba2",
+          "accent": "#4ade80",
+          "neutral": "#f8fafc",
+          "text": "#1e293b"
+        },
+        "style": "modern, clean, professional, wellness-focused, diverse, inclusive",
+        "tone": "encouraging, supportive, non-judgmental, empowering",
+        "visualThemes": "health, wellness, AI technology, cultural diversity, personal growth"
+      }
+    }
+  },
+  "logos": {
+    "main": {
+      "prompt": "TuneAtLife company logo design.\n        Text: \"TuneAtLife\" in modern, professional typography\n        Symbol: Subtle wellness/target/growth icon integrated with text\n        Style: Modern, clean, memorable, professional\n        Colors: Primary #667eea with gradients\n    Brand personality: Supportive, innovative, culturally aware, professional\n    Style: modern, clean, professional, wellness-focused, diverse, inclusive\n    Scalability: Works from favicon size to large displays\n    Memorability: Easy to recognize and remember\n    Wellness industry: Appropriate for health/wellness platform\n    \n    The logo should represent AI-powered, culturally-aware wellness coaching.",
+      "timestamp": "2025-09-21T06:48:23.696Z",
+      "brandGuidelines": {
+        "colorPalette": {
+          "primary": "#667eea",
+          "secondary": "#764ba2",
+          "accent": "#4ade80",
+          "neutral": "#f8fafc",
+          "text": "#1e293b"
+        },
+        "style": "modern, clean, professional, wellness-focused, diverse, inclusive",
+        "tone": "encouraging, supportive, non-judgmental, empowering",
+        "visualThemes": "health, wellness, AI technology, cultural diversity, personal growth"
+      }
+    },
+    "icon": {
+      "prompt": "TuneAtLife app icon design.\n        Format: Square app icon, iOS/Android compatible\n        Symbol: Recognizable wellness/target/AI symbol\n        Style: Modern, scalable, works at small sizes\n        Colors: Gradient using brand colors\n    Brand personality: Supportive, innovative, culturally aware, professional\n    Style: modern, clean, professional, wellness-focused, diverse, inclusive\n    Scalability: Works from favicon size to large displays\n    Memorability: Easy to recognize and remember\n    Wellness industry: Appropriate for health/wellness platform\n    \n    The logo should represent AI-powered, culturally-aware wellness coaching.",
+      "timestamp": "2025-09-21T06:48:23.696Z",
+      "brandGuidelines": {
+        "colorPalette": {
+          "primary": "#667eea",
+          "secondary": "#764ba2",
+          "accent": "#4ade80",
+          "neutral": "#f8fafc",
+          "text": "#1e293b"
+        },
+        "style": "modern, clean, professional, wellness-focused, diverse, inclusive",
+        "tone": "encouraging, supportive, non-judgmental, empowering",
+        "visualThemes": "health, wellness, AI technology, cultural diversity, personal growth"
+      }
+    },
+    "white": {
+      "prompt": "TuneAtLife logo in white/light version.\n        Usage: For dark backgrounds\n        Style: Clean white text and symbol\n        Contrast: High contrast for readability on dark backgrounds\n    Brand personality: Supportive, innovative, culturally aware, professional\n    Style: modern, clean, professional, wellness-focused, diverse, inclusive\n    Scalability: Works from favicon size to large displays\n    Memorability: Easy to recognize and remember\n    Wellness industry: Appropriate for health/wellness platform\n    \n    The logo should represent AI-powered, culturally-aware wellness coaching.",
+      "timestamp": "2025-09-21T06:48:23.696Z",
+      "brandGuidelines": {
+        "colorPalette": {
+          "primary": "#667eea",
+          "secondary": "#764ba2",
+          "accent": "#4ade80",
+          "neutral": "#f8fafc",
+          "text": "#1e293b"
+        },
+        "style": "modern, clean, professional, wellness-focused, diverse, inclusive",
+        "tone": "encouraging, supportive, non-judgmental, empowering",
+        "visualThemes": "health, wellness, AI technology, cultural diversity, personal growth"
+      }
+    }
+  }
+}

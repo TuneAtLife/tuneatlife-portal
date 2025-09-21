@@ -7,9 +7,15 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "generate-assets": "node scripts/generateBrandAssets.js",
+    "test-cloudinary": "node scripts/testCloudinary.js",
+    "generate-experts": "node scripts/generateExpertAvatars.js",
+    "upload-avatars": "node scripts/uploadExpertAvatars.js",
+    "setup-ai": "npm install @google/generative-ai cloudinary dotenv && echo '🎯 Setup complete! Add your API keys to .env.local'"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
     "@hookform/resolvers": "^5.0.1",
     "@radix-ui/react-accordion": "^1.2.10",
     "@radix-ui/react-alert-dialog": "^1.1.13",
@@ -41,9 +47,11 @@
     "@sentry/vite-plugin": "^4.3.0",
     "@tailwindcss/vite": "^4.1.7",
     "class-variance-authority": "^0.7.1",
+    "cloudinary": "^2.7.0",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
     "date-fns": "^4.1.0",
+    "dotenv": "^17.2.2",
     "embla-carousel-react": "^8.6.0",
     "framer-motion": "^12.15.0",
     "input-otp": "^1.4.2",

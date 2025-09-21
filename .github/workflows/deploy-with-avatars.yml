@@ -1,0 +1,400 @@
+name: Deploy Portal with Expert Avatar Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+    inputs:
+      regenerate_avatars:
+        description: 'Force regenerate all expert avatars'
+        type: boolean
+        required: false
+        default: false
+      avatar_quality:
+        description: 'Avatar generation quality'
+        type: choice
+        options: 
+          - high
+          - medium
+          - low
+        required: false
+        default: 'high'
+      skip_mobile_sync:
+        description: 'Skip syncing avatars to mobile'
+        type: boolean
+        required: false
+        default: false
+
+env:
+  FLY_APP_NAME: 'tuneatlife-beta-portal'
+  NODE_VERSION: '20'
+  
+jobs:
+  # Phase 1: Expert Avatar Generation and Upload
+  generate-avatars:
+    name: Generate and Upload Expert Avatars
+    runs-on: ubuntu-latest
+    if: contains(github.event.head_commit.message, '[avatars]') || github.event.inputs.regenerate_avatars == 'true' || github.event_name == 'workflow_dispatch'
+    
+    outputs:
+      avatars-generated: ${{ steps.check-generation.outputs.avatars-generated }}
+      avatar-urls: ${{ steps.upload-results.outputs.avatar-urls }}
+      generation-summary: ${{ steps.upload-results.outputs.summary }}
+      
+    steps:
+      - name: Checkout Portal Code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          
+      - name: Install Dependencies
+        run: |
+          echo "📦 Installing dependencies for avatar generation..."
+          npm ci
+          
+      - name: Configure Environment Variables
+        run: |
+          echo "⚙️ Setting up environment for avatar generation..."
+          # Create .env.local with secrets
+          cat > .env.local << EOF
+          REACT_APP_CLOUDINARY_CLOUD_NAME="${{ secrets.CLOUDINARY_CLOUD_NAME }}"
+          CLOUDINARY_API_KEY="${{ secrets.CLOUDINARY_API_KEY }}"
+          CLOUDINARY_API_SECRET="${{ secrets.CLOUDINARY_API_SECRET }}"
+          OPENAI_API_KEY="${{ secrets.OPENAI_API_KEY }}"
+          GEMINI_API_KEY="${{ secrets.GEMINI_API_KEY }}"
+          EOF
+          
+      - name: Check for Existing Avatars
+        id: check-generation
+        run: |
+          echo "🔍 Checking avatar generation requirements..."
+          
+          FORCE_REGEN="${{ github.event.inputs.regenerate_avatars }}"
+          COMMIT_MSG="${{ github.event.head_commit.message }}"
+          
+          # Check if we should generate avatars
+          if [[ "$FORCE_REGEN" == "true" ]] || [[ "$COMMIT_MSG" == *"[avatars]"* ]]; then
+            echo "✅ Avatar generation triggered"
+            echo "avatars-generated=true" >> $GITHUB_OUTPUT
+            echo "SHOULD_GENERATE=true" >> $GITHUB_ENV
+          else
+            echo "⏭️ Avatar generation not required"
+            echo "avatars-generated=false" >> $GITHUB_OUTPUT
+            echo "SHOULD_GENERATE=false" >> $GITHUB_ENV
+          fi
+          
+      - name: Generate AI Expert Avatars
+        if: env.SHOULD_GENERATE == 'true'
+        run: |
+          echo "🎨 Generating expert avatars with AI..."
+          
+          # Set quality parameter
+          QUALITY="${{ github.event.inputs.avatar_quality || 'high' }}"
+          export AVATAR_QUALITY="$QUALITY"
+          
+          # Run avatar generation
+          npm run generate-experts
+          
+          echo "📊 Avatar generation completed"
+          ls -la generated-assets/expert-avatars/images/ || echo "No images generated"
+          
+      - name: Upload Avatars to Cloudinary
+        if: env.SHOULD_GENERATE == 'true'
+        id: upload-results
+        run: |
+          echo "☁️ Uploading expert avatars to Cloudinary..."
+          
+          # Run the upload script
+          npm run upload-avatars
+          
+          # Capture upload results
+          if [ -f "generated-assets/expert-avatars/processed/upload-report.json" ]; then
+            echo "✅ Upload completed successfully"
+            
+            # Extract key information from upload report
+            SUCCESSFUL_UPLOADS=$(cat generated-assets/expert-avatars/processed/upload-report.json | jq -r '.summary.successfulUploads')
+            TOTAL_PROCESSED=$(cat generated-assets/expert-avatars/processed/upload-report.json | jq -r '.summary.totalProcessed')
+            
+            echo "📊 Upload Summary: $SUCCESSFUL_UPLOADS/$TOTAL_PROCESSED successful"
+            echo "summary=Uploaded $SUCCESSFUL_UPLOADS/$TOTAL_PROCESSED expert avatars" >> $GITHUB_OUTPUT
+            
+            # Create avatar URLs output for other jobs
+            cat generated-assets/expert-avatars/processed/upload-report.json | jq -c '.experts' > avatar-urls.json
+            echo "avatar-urls=$(cat avatar-urls.json)" >> $GITHUB_OUTPUT
+            
+            # Upload artifacts
+            echo "📁 Saving generation artifacts..."
+          else
+            echo "❌ Upload failed - no report generated"
+            exit 1
+          fi
+          
+      - name: Upload Generation Artifacts
+        if: env.SHOULD_GENERATE == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: expert-avatar-generation
+          path: |
+            generated-assets/expert-avatars/processed/
+            generated-assets/expert-avatars/GENERATION_GUIDE.md
+          retention-days: 7
+          
+      - name: Create Generation Summary Comment
+        if: env.SHOULD_GENERATE == 'true' && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            if (fs.existsSync('generated-assets/expert-avatars/processed/UPLOAD_SUMMARY.md')) {
+              const summary = fs.readFileSync('generated-assets/expert-avatars/processed/UPLOAD_SUMMARY.md', 'utf8');
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: '## 🎨 Expert Avatar Generation Results\n\n' + summary
+              });
+            }
+
+  # Phase 2: Portal Application Build and Test  
+  build-and-test:
+    name: Build and Test Portal
+    runs-on: ubuntu-latest
+    needs: [generate-avatars]
+    if: always() && (needs.generate-avatars.result == 'success' || needs.generate-avatars.result == 'skipped')
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          
+      - name: Install Dependencies
+        run: |
+          echo "📦 Installing portal dependencies..."
+          npm ci
+          
+      - name: Run Linting
+        run: |
+          echo "🔍 Running code quality checks..."
+          npm run lint
+          
+      - name: Build Application
+        run: |
+          echo "🏗️ Building portal application..."
+          npm run build
+          
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: portal-build
+          path: dist/
+          retention-days: 1
+
+  # Phase 3: Deploy Portal using Reusable Infrastructure Workflow
+  deploy-portal:
+    name: Deploy Portal to Fly.io
+    needs: [generate-avatars, build-and-test]
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    uses: TuneAtLife/tuneatlife-infrastructure/.github/workflows/fly-auth.yml@master
+    with:
+      app-name: 'tuneatlife-beta-portal'
+      service-name: 'TuneAtLife Portal'
+      environment: 'production'
+      enable-notifications: true
+      health-check-path: '/health'
+      deployment-timeout: '600'
+    secrets:
+      FLY_API_TOKEN: ${{ secrets.FLY_ORG_TOKEN }}
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL_DEV_INFRA }}
+      
+  # Phase 4: Sync Avatars to Mobile Repository
+  sync-to-mobile:
+    name: Sync Expert Avatars to Mobile
+    runs-on: ubuntu-latest
+    needs: [generate-avatars, deploy-portal]
+    if: needs.generate-avatars.outputs.avatars-generated == 'true' && github.event.inputs.skip_mobile_sync != 'true'
+    
+    steps:
+      - name: Checkout Mobile Repository
+        uses: actions/checkout@v4
+        with:
+          repository: TuneAtLife/tuneatlife-mobile
+          token: ${{ secrets.AUTOMATION_PAT }}
+          path: mobile-repo
+          
+      - name: Update Mobile Expert Profiles
+        run: |
+          echo "📱 Updating mobile app expert profiles..."
+          
+          cd mobile-repo
+          
+          # Create avatar configuration update
+          AVATAR_DATA='${{ needs.generate-avatars.outputs.avatar-urls }}'
+          
+          if [ ! -z "$AVATAR_DATA" ] && [ "$AVATAR_DATA" != "null" ]; then
+            echo "Updating mobile app expert profiles with new avatar URLs..."
+            
+            # Update expert profiles (implementation depends on mobile app structure)
+            cat > avatar-update.json << EOF
+          {
+            "updated": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "avatars": $AVATAR_DATA,
+            "source": "portal-ci-cd"
+          }
+          EOF
+          
+            # Commit updates if there are changes
+            git config --local user.email "ci@tuneatlife.com"
+            git config --local user.name "TuneAtLife CI/CD"
+            
+            git add avatar-update.json
+            if git diff --cached --quiet; then
+              echo "No changes to commit"
+            else
+              git commit -m "feat: Update expert avatars from portal deployment [skip ci]"
+              git push
+              echo "✅ Mobile app expert profiles updated"
+            fi
+          else
+            echo "⚠️ No avatar data to sync"
+          fi
+          
+  # Phase 5: Health Check and Validation
+  post-deployment-validation:
+    name: Validate Deployment and Avatar Integration
+    runs-on: ubuntu-latest
+    needs: [deploy-portal, sync-to-mobile]
+    if: always() && needs.deploy-portal.result == 'success'
+    
+    steps:
+      - name: Wait for Deployment Stabilization
+        run: |
+          echo "⏳ Waiting for deployment to stabilize..."
+          sleep 30
+          
+      - name: Validate Portal Health
+        run: |
+          echo "🔍 Validating portal health..."
+          
+          APP_URL="https://${{ env.FLY_APP_NAME }}.fly.dev"
+          HEALTH_URL="${APP_URL}/health"
+          
+          for i in {1..5}; do
+            if curl -f -s "$HEALTH_URL" > /dev/null; then
+              echo "✅ Portal health check passed on attempt $i"
+              break
+            fi
+            echo "⏳ Health check attempt $i failed, retrying in 15s..."
+            sleep 15
+            if [ $i -eq 5 ]; then
+              echo "❌ Portal health check failed after 5 attempts"
+              exit 1
+            fi
+          done
+          
+      - name: Validate Avatar Integration
+        if: needs.generate-avatars.outputs.avatars-generated == 'true'
+        run: |
+          echo "🎨 Validating avatar integration..."
+          
+          APP_URL="https://${{ env.FLY_APP_NAME }}.fly.dev"
+          
+          # Test if portal can access expert avatars (depends on implementation)
+          if curl -f -s "${APP_URL}/" | grep -q "tuneatlife/experts"; then
+            echo "✅ Portal avatar integration validated"
+          else
+            echo "⚠️ Could not validate avatar integration via web interface"
+          fi
+          
+      - name: Generate Deployment Report
+        run: |
+          echo "📊 Generating deployment report..."
+          
+          REPORT_TIME=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
+          COMMIT_SHA="${{ github.sha }}"
+          SHORT_SHA="${COMMIT_SHA:0:7}"
+          
+          cat > deployment-report.md << EOF
+          # TuneAtLife Portal Deployment Report
+          
+          **Deployment Time:** $REPORT_TIME  
+          **Commit:** [$SHORT_SHA](https://github.com/${{ github.repository }}/commit/$COMMIT_SHA)  
+          **Portal URL:** https://${{ env.FLY_APP_NAME }}.fly.dev  
+          **Avatar Generation:** ${{ needs.generate-avatars.outputs.avatars-generated }}  
+          **Mobile Sync:** ${{ github.event.inputs.skip_mobile_sync != 'true' && 'Completed' || 'Skipped' }}  
+          
+          ## Avatar Generation Summary
+          ${{ needs.generate-avatars.outputs.generation-summary || 'No avatars generated in this deployment' }}
+          
+          ## Deployment Status
+          - ✅ Portal deployed successfully
+          - ✅ Health checks passing
+          - ${{ needs.generate-avatars.outputs.avatars-generated == 'true' && '✅' || '⏭️' }} Expert avatars processed
+          - ${{ github.event.inputs.skip_mobile_sync != 'true' && '✅' || '⏭️' }} Mobile synchronization
+          
+          Your TuneAtLife portal is now live with the latest expert avatars!
+          EOF
+          
+          echo "📋 Deployment Report:"
+          cat deployment-report.md
+          
+      - name: Upload Deployment Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: deployment-report
+          path: deployment-report.md
+          retention-days: 30
+
+  # Phase 6: Notification and Cleanup
+  notify-completion:
+    name: Send Deployment Notifications
+    runs-on: ubuntu-latest
+    needs: [generate-avatars, deploy-portal, sync-to-mobile, post-deployment-validation]
+    if: always()
+    
+    steps:
+      - name: Determine Overall Status
+        id: status
+        run: |
+          if [[ "${{ needs.deploy-portal.result }}" == "success" ]] && \
+             [[ "${{ needs.post-deployment-validation.result }}" == "success" ]]; then
+            echo "status=success" >> $GITHUB_OUTPUT
+            echo "color=#36A64F" >> $GITHUB_OUTPUT
+            echo "emoji=✅" >> $GITHUB_OUTPUT
+          else
+            echo "status=failure" >> $GITHUB_OUTPUT  
+            echo "color=#FF0000" >> $GITHUB_OUTPUT
+            echo "emoji=🚨" >> $GITHUB_OUTPUT
+          fi
+          
+      - name: Send Slack Notification
+        if: always()
+        uses: TuneAtLife/tuneatlife-infrastructure/.github/workflows/notify-slack.yml@master
+        with:
+          status: ${{ steps.status.outputs.status }}
+          service-name: "TuneAtLife Portal + Expert Avatars"
+          run-url: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          environment: "production"
+          version: ${{ github.sha }}
+        secrets:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL_DEV_INFRA }}
+          
+      - name: Update Deployment Status
+        if: always()
+        run: |
+          echo "${{ steps.status.outputs.emoji }} Portal deployment with avatar pipeline: ${{ steps.status.outputs.status }}"
+          echo "🔗 Portal URL: https://${{ env.FLY_APP_NAME }}.fly.dev"
+          echo "📊 Avatar Generation: ${{ needs.generate-avatars.outputs.avatars-generated }}"
+          echo "📱 Mobile Sync: ${{ github.event.inputs.skip_mobile_sync != 'true' && 'Completed' || 'Skipped' }}"

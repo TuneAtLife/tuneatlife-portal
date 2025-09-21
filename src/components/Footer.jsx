@@ -11,7 +11,6 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-center">
           {/* Brand Section */}
           <div className="flex items-center mb-4 md:mb-0">
-            <span className="text-2xl mr-2">🎯</span>
             <span className="text-lg font-semibold text-gray-900">TuneAtLife</span>
           </div>
 
