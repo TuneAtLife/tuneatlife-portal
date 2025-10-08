@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button.jsx';
 import { Badge } from '@/components/ui/badge.jsx';
 import { Card, CardContent } from '@/components/ui/card.jsx';
-import { Check, Star, Users, Zap, Heart, Brain, Moon, Dumbbell, Apple } from 'lucide-react';
+import { Check, Star, Users, Zap, Heart, Brain, Moon, Dumbbell, Apple, Target, Bell, Activity, User } from 'lucide-react';
 import { getTuneAtLifeImage, getAvatarUrl, IMAGE_PRESETS } from '@/utils/cloudinary.js';
+import LoginButton from './LoginButton.jsx';
 
 const LandingPage = () => {
   const [timeLeft, setTimeLeft] = useState({ days: 7, hours: 12, minutes: 45, seconds: 23 });
@@ -44,21 +45,21 @@ const LandingPage = () => {
       role: "Working Mom, Lost 28lbs",
       text: "Finally! A wellness coach that gets my crazy schedule. The AI experts feel like having 5 personal coaches in my pocket.",
       rating: 5,
-      avatar: getAvatarUrl(getTuneAtLifeImage('testimonials', 'sarahM'), 120)
+      avatar: null // Remove broken avatar for now
     },
     {
       name: "David L.", 
       role: "CEO, Improved Sleep 85%",
       text: "I was skeptical about AI coaching, but Dr. Wilson's sleep advice changed my life. I'm sleeping better than I have in 10 years.",
       rating: 5,
-      avatar: getAvatarUrl(getTuneAtLifeImage('testimonials', 'davidL'), 120)
+      avatar: null // Remove broken avatar for now
     },
     {
       name: "Maria G.",
       role: "Fitness Enthusiast, 40lbs Muscle Gain",
       text: "Coach Alex's culturally-aware fitness plans actually fit my lifestyle. No more cookie-cutter workouts!",
       rating: 5,
-      avatar: getAvatarUrl(getTuneAtLifeImage('testimonials', 'mariaG'), 120)
+      avatar: null // Remove broken avatar for now
     }
   ];
 
@@ -66,22 +67,22 @@ const LandingPage = () => {
     { 
       number: "10,000+", 
       label: "Lives Transformed", 
-      icon: getTuneAtLifeImage('icons', 'health', IMAGE_PRESETS.icon)
+      icon: Heart // Using Lucide icon instead
     },
     { 
       number: "89%", 
       label: "See Results in 2 Weeks", 
-      icon: getTuneAtLifeImage('icons', 'progress', IMAGE_PRESETS.icon)
+      icon: Target // Using Lucide icon instead
     },
     { 
       number: "5", 
       label: "AI Expert Coaches", 
-      icon: getTuneAtLifeImage('icons', 'ai', IMAGE_PRESETS.icon)
+      icon: Brain // Using Lucide icon instead
     },
     { 
       number: "24/7", 
       label: "Always Available", 
-      icon: getTuneAtLifeImage('icons', 'notification', IMAGE_PRESETS.icon)
+      icon: Bell // Using Lucide icon instead
     }
   ];
 
@@ -90,40 +91,40 @@ const LandingPage = () => {
       name: "Coach Alex Rivera",
       specialty: "Fitness & Movement",
       description: "Former Olympic trainer with 15+ years experience. Specializes in culturally-adaptive fitness routines.",
-      avatar: getAvatarUrl(getTuneAtLifeImage('experts', 'alexRivera'), 80),
-      icon: getTuneAtLifeImage('icons', 'fitness', IMAGE_PRESETS.icon),
+      avatar: null, // Remove broken avatar for now
+      icon: Dumbbell, // Using Lucide icon instead
       color: "from-orange-400 to-red-500"
     },
     {
       name: "Dr. Maya Chen",
       specialty: "Nutrition & Functional Medicine", 
       description: "Harvard-trained nutritionist. Creates personalized meal plans based on your cultural food preferences.",
-      avatar: getAvatarUrl(getTuneAtLifeImage('experts', 'mayaChen'), 80),
-      icon: getTuneAtLifeImage('icons', 'nutrition', IMAGE_PRESETS.icon),
+      avatar: null, // Remove broken avatar for now
+      icon: Apple, // Using Lucide icon instead
       color: "from-green-400 to-emerald-500"
     },
     {
       name: "Dr. Sarah Kim",
       specialty: "Mindfulness & Stress",
       description: "Mindfulness expert with 20+ years practice. Combines Eastern wisdom with Western psychology.",
-      avatar: getAvatarUrl(getTuneAtLifeImage('experts', 'sarahKim'), 80),
-      icon: getTuneAtLifeImage('icons', 'mindfulness', IMAGE_PRESETS.icon),
+      avatar: null, // Remove broken avatar for now
+      icon: Brain, // Using Lucide icon instead
       color: "from-purple-400 to-pink-500"
     },
     {
       name: "Dr. James Wilson",
       specialty: "Sleep Optimization",
       description: "Sleep medicine specialist. Has helped thousands achieve perfect sleep using proven scientific methods.",
-      avatar: getAvatarUrl(getTuneAtLifeImage('experts', 'jamesWilson'), 80),
-      icon: getTuneAtLifeImage('icons', 'sleep', IMAGE_PRESETS.icon),
+      avatar: null, // Remove broken avatar for now
+      icon: Moon, // Using Lucide icon instead
       color: "from-blue-400 to-indigo-500"
     },
     {
       name: "Dr. Lisa Park",
       specialty: "Natural Supplements",
       description: "Holistic health expert. Recommends only evidence-based supplements tailored to your unique needs.",
-      avatar: getAvatarUrl(getTuneAtLifeImage('experts', 'lisaPark'), 80),
-      icon: getTuneAtLifeImage('icons', 'supplements', IMAGE_PRESETS.icon),
+      avatar: null, // Remove broken avatar for now
+      icon: Activity, // Using Lucide icon instead
       color: "from-rose-400 to-pink-500"
     }
   ];
@@ -152,11 +153,9 @@ const LandingPage = () => {
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <img 
-                src={getTuneAtLifeImage('logo', 'icon', { width: 48, height: 48 })} 
-                alt="TuneAtLife" 
-                className="w-12 h-12"
-              />
+              <div className="w-12 h-12 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center">
+                <Heart className="w-6 h-6 text-white" />
+              </div>
               <div>
                 <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
                   TuneAtLife
@@ -166,9 +165,7 @@ const LandingPage = () => {
             </div>
             <div className="flex items-center gap-4">
               <Badge className="bg-green-100 text-green-800">✅ Trusted by 10,000+</Badge>
-              <Button size="lg" className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-lg animate-pulse">
-                Get Early Access
-              </Button>
+              <LoginButton size="lg" className="animate-pulse" />
             </div>
           </div>
         </div>
@@ -212,10 +209,10 @@ const LandingPage = () => {
               </div>
 
               <div className="space-y-4">
-                <Button size="lg" className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white px-8 py-4 text-lg font-semibold shadow-xl transform hover:scale-105 transition-all duration-200">
-                  Start Your Transformation - FREE
-                  <span className="block text-sm opacity-90">Join 10,000+ people already transforming</span>
-                </Button>
+                <div className="flex flex-col items-start">
+                  <LoginButton size="lg" className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white px-8 py-4 text-lg font-semibold shadow-xl transform hover:scale-105 transition-all duration-200" />
+                  <span className="text-sm text-gray-500 mt-2 ml-2">Join 10,000+ people already transforming</span>
+                </div>
                 
                 <div className="flex items-center gap-4 text-sm text-gray-500">
                   <div className="flex items-center gap-1">

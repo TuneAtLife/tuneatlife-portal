@@ -1,7 +1,7 @@
 # syntax = docker/dockerfile:1
 
 # Build stage
-FROM node:20-alpine as build
+FROM node:20-alpine AS build
 
 # Set working directory
 WORKDIR /app
@@ -15,10 +15,26 @@ COPY package.json pnpm-lock.yaml ./
 # Install dependencies
 RUN pnpm install --frozen-lockfile
 
+# Accept build arguments for environment variables
+ARG VITE_SUPABASE_URL
+ARG VITE_SUPABASE_ANON_KEY
+ARG VITE_SENTRY_DSN
+ARG VITE_ENVIRONMENT
+ARG VITE_SENTRY_RELEASE
+ARG SENTRY_AUTH_TOKEN
+
+# Set environment variables for Vite build
+ENV VITE_SUPABASE_URL=$VITE_SUPABASE_URL
+ENV VITE_SUPABASE_ANON_KEY=$VITE_SUPABASE_ANON_KEY
+ENV VITE_SENTRY_DSN=$VITE_SENTRY_DSN
+ENV VITE_ENVIRONMENT=$VITE_ENVIRONMENT
+ENV VITE_SENTRY_RELEASE=$VITE_SENTRY_RELEASE
+ENV SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN
+
 # Copy source code
 COPY . .
 
-# Build the application
+# Build the application with environment variables
 RUN pnpm build
 
 # Production stage

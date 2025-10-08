@@ -182,6 +182,13 @@ export const getTuneAtLifeImage = (category, imageName, options = {}) => {
     return '';
   }
   
+  // Return a placeholder or empty string to avoid 404s for now
+  // TODO: Upload actual assets to Cloudinary
+  if (process.env.NODE_ENV === 'development') {
+    console.warn(`Using placeholder for missing Cloudinary asset: ${category}.${imageName}`);
+    return ''; // Return empty string to avoid broken images
+  }
+  
   return getOptimizedImageUrl(publicId, options);
 };
 

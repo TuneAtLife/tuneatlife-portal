@@ -1,10 +1,15 @@
-app = 'tuneatlife-beta-portal'
-primary_region = 'iad'
+app = "tuneatlife-beta-portal"
+primary_region = "iad"
 
 [build]
+  [build.args]
+    VITE_SUPABASE_URL = "https://xqxxtmrinjromjxhutcj.supabase.co"
+    VITE_SUPABASE_ANON_KEY = "${VITE_SUPABASE_ANON_KEY}"
+    VITE_SENTRY_DSN = "${VITE_SENTRY_DSN}"
+    VITE_ENVIRONMENT = "production"
 
 [env]
-  PORT = '3000'
+  PORT = "3000"
 
 [http_service]
   internal_port = 3000
@@ -12,7 +17,7 @@ primary_region = 'iad'
   auto_stop_machines = true
   auto_start_machines = true
   min_machines_running = 0
-  processes = ['app']
+  processes = ["app"]
 
   [[http_service.checks]]
     grace_period = "10s"
@@ -24,11 +29,10 @@ primary_region = 'iad'
     tls_skip_verify = false
 
 [[vm]]
-  memory = '512mb'
-  cpu_kind = 'shared'
+  memory = "512mb"
+  cpu_kind = "shared"
   cpus = 1
 
 [[statics]]
-  guest_path = '/usr/share/nginx/html'
-  url_prefix = '/'
-
+  guest_path = "/usr/share/nginx/html"
+  url_prefix = "/"
